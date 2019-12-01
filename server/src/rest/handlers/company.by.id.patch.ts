@@ -4,7 +4,6 @@ import {StorageData} from "../../storage/storage.data";
 import {ClearAncestors} from "./clear.ancestors";
 import {GetAncestors} from "./get.ancestors";
 import { Pool, PoolClient, Client, QueryResult } from 'pg';
-import {Validator} from "../validator";
 
 export class CompanyByIdPatchHandler implements Handler {
     constructor(private storage: StorageData) {

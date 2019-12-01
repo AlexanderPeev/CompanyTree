@@ -2,7 +2,6 @@ import {Handler} from "./handler";
 import {RequestHandler} from "restify";
 import {StorageData} from "../../storage/storage.data";
 import {ClearAncestors} from "./clear.ancestors";
-import {Validator} from "../validator";
 import { Pool, PoolClient, Client, QueryResult } from 'pg';
 
 export class CompaniesCreatePostHandler implements Handler {
