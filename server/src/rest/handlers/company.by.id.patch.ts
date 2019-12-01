@@ -13,7 +13,7 @@ export class CompanyByIdPatchHandler implements Handler {
 
     getRequestHandler(): RequestHandler {
         return (req, res, next) => {
-            const id = parseInt(req.params.id);
+            const id = parseInt(req.params.id, 10);
             const newData = req.body;
             const newParentId = newData.parent_node_id;
 

@@ -10,7 +10,7 @@ export class CompanyByIdGetDescendantsHandler implements Handler {
 
     getRequestHandler(): RequestHandler {
         return (req, res, next) => {
-            const id = parseInt(req.params.id);
+            const id = parseInt(req.params.id, 10);
 
             this.storage.transaction((client: Client, commit: () => Promise<any>, rollback: () => Promise<any>) => {
                 return client.query({values: [id], text: 'SELECT d.descendants::json FROM descendants d WHERE node_id=$1'}).then((res1: QueryResult<any>) => {
