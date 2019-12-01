@@ -1,10 +1,9 @@
 import {Handler} from "./handler";
 import {RequestHandler} from "restify";
 import {StorageData} from "../../storage/storage.data";
-import {ChangesResult} from "./changes.result";
 import {ClearAncestors} from "./clear.ancestors";
 import {Validator} from "../validator";
-import { Pool, Client, QueryResult } from 'pg';
+import { Pool, PoolClient, Client, QueryResult } from 'pg';
 
 export class CompaniesCreatePostHandler implements Handler {
     constructor(private storage: StorageData) {
@@ -14,7 +13,7 @@ export class CompaniesCreatePostHandler implements Handler {
         return (req, res, next) => {
             const newData = req.body;
 
-            this.storage.transaction((client: Client, commit: () => Promise<any>, rollback: () => Promise<any>) => {
+            this.storage.transaction((client: PoolClient, commit: () => Promise<any>, rollback: () => Promise<any>) => {
                 return client.query({values: [newData.parent_node_id], text: "SELECT " +
                     " n1.node_id, n1.parent_node_id, n1.root_node_id, n1.height " +
                     " FROM nodes n1 WHERE node_id = $1 "}).then((res1: QueryResult<any>) => {

@@ -84,7 +84,7 @@ export class StorageEngine {
             });
             console.log('Total: ', total);
             if (!total) {
-                return storage.transaction((client: Client, commit: () => Promise<any>, rollback: () => Promise<any>) => {
+                return storage.transaction((client: PoolClient, commit: () => Promise<any>, rollback: () => Promise<any>) => {
                     return client.query("INSERT INTO nodes (parent_node_id, root_node_id, height) VALUES(NULL, lastval(), 0)").then((value2: QueryResult<any>) => {
                         commit();
                         return storage;

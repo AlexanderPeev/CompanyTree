@@ -1,4 +1,4 @@
-const { Pool, PoolClient, Client, Result } = require('pg')
+import { Pool, PoolClient, Client, QueryResult } from 'pg';
 
 export interface StorageData {
     pool: Pool;

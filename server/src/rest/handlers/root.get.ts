@@ -1,7 +1,7 @@
 import {Handler} from "./handler";
 import {RequestHandler} from "restify";
 import {StorageData} from "../../storage/storage.data";
-import { Pool, Client, QueryResult } from 'pg';
+import { Pool, PoolClient, Client, QueryResult } from 'pg';
 
 export class RootGetHandler implements Handler {
     constructor(private storage: StorageData) {
@@ -10,7 +10,7 @@ export class RootGetHandler implements Handler {
     getRequestHandler(): RequestHandler {
         return (req, res, next) => {
 
-            this.storage.transaction((client: Client, commit: () => Promise<any>, rollback: () => Promise<any>) => {
+            this.storage.transaction((client: PoolClient, commit: () => Promise<any>, rollback: () => Promise<any>) => {
                 return client.query("SELECT " +
                     " n1.node_id, n1.parent_node_id, n1.root_node_id, n1.height " +
                     " FROM nodes n1 WHERE node_id = root_node_id ").then((res1: QueryResult<any>) => {

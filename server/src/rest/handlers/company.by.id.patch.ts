@@ -1,10 +1,9 @@
 import {Handler} from "./handler";
 import {RequestHandler} from "restify";
 import {StorageData} from "../../storage/storage.data";
-import {ChangesResult} from "./changes.result";
 import {ClearAncestors} from "./clear.ancestors";
 import {GetAncestors} from "./get.ancestors";
-import { Pool, Client, QueryResult } from 'pg';
+import { Pool, PoolClient, Client, QueryResult } from 'pg';
 import {Validator} from "../validator";
 
 export class CompanyByIdPatchHandler implements Handler {
@@ -17,7 +16,7 @@ export class CompanyByIdPatchHandler implements Handler {
             const newData = req.body;
             const newParentId = newData.parent_node_id;
 
-            this.storage.transaction((client: Client, commit: () => Promise<any>, rollback: () => Promise<any>) => {
+            this.storage.transaction((client: PoolClient, commit: () => Promise<any>, rollback: () => Promise<any>) => {
                 return client.query({values: [id], text: "SELECT " +
                     " n1.node_id, n1.parent_node_id, n1.root_node_id, n1.height " +
                     " FROM nodes n1 WHERE node_id = $1 "}).then((res1: QueryResult<any>) => {

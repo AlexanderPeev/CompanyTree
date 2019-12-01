@@ -1,8 +1,8 @@
 import {StorageData} from "../../storage/storage.data";
-import { Pool, Client, QueryResult } from 'pg';
+import { Pool, PoolClient, Client, QueryResult } from 'pg';
 
 export class GetDescendants {
-    constructor(private client: Client) {}
+    constructor(private client: PoolClient) {}
 
     public getDescendants(id: number): Promise<any[]> {
         return this.client.query({values: [id], text: "WITH RECURSIVE descendants AS (" +

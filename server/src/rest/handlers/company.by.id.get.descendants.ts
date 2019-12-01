@@ -2,7 +2,7 @@ import {Handler} from "./handler";
 import {GetDescendants} from "./descendants";
 import {RequestHandler} from "restify";
 import {StorageData} from "../../storage/storage.data";
-import { Pool, Client, QueryResult } from 'pg';
+import { Pool, PoolClient, Client, QueryResult } from 'pg';
 
 export class CompanyByIdGetDescendantsHandler implements Handler {
     constructor(private storage: StorageData) {
@@ -12,7 +12,7 @@ export class CompanyByIdGetDescendantsHandler implements Handler {
         return (req, res, next) => {
             const id = parseInt(req.params.id, 10);
 
-            this.storage.transaction((client: Client, commit: () => Promise<any>, rollback: () => Promise<any>) => {
+            this.storage.transaction((client: PoolClient, commit: () => Promise<any>, rollback: () => Promise<any>) => {
                 return client.query({values: [id], text: 'SELECT d.descendants::json FROM descendants d WHERE node_id=$1'}).then((res1: QueryResult<any>) => {
                     if (res1.rows.length) {
                         const descendants = res1.rows[0].descendants;

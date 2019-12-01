@@ -1,8 +1,8 @@
 import {StorageData} from "../../storage/storage.data";
-import { Pool, Client, QueryResult } from 'pg';
+import { Pool, PoolClient, Client, QueryResult } from 'pg';
 
 export class GetAncestors {
-    constructor(private client: Client) {}
+    constructor(private client: PoolClient) {}
 
     public getAncestors(ids: number[]): Promise<any[]> {
         let idParams = "";
