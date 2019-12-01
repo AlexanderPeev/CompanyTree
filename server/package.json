@@ -1,0 +1,43 @@
+{
+  "name": "company-tree",
+  "version": "1.0.0",
+  "description": "A simple REST API supporting CRUD operations on a collection of simple Company nodes",
+  "main": "src/main.js",
+  "scripts": {
+    "run": "ts-node --project ./tsconfig.json ./src/main.ts",
+    "run-local": "ts-node --project ./tsconfig.json ./src/main.ts postgres://postgres:postgres@localhost:5432/postgres",
+    "test": "ts-node --project ./tsconfig.json node_modules/jasmine/bin/jasmine --config=spec/support/jasmine.ts.json",
+    "tsc": "tsc",
+    "build-prod": "tsc",
+    "build-prod-dir": "tsc --outDir ./build",
+    "jasmine": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexanderPeev/CompanyTree.git"
+  },
+  "keywords": [
+    "companies",
+    "REST"
+  ],
+  "author": "Alexander Peev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AlexanderPeev/CompanyTree/issues"
+  },
+  "homepage": "https://github.com/AlexanderPeev/CompanyTree#readme",
+  "dependencies": {
+    "@types/pg": "^7.11.2",
+    "@types/restify": "^8.4.0",
+    "child-process": "^1.0.2",
+    "express": "^4.17.1",
+    "pg": "^7.14.0",
+    "restify": "^8.4.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^3.4.4",
+    "jasmine": "^3.5.0"
+  }
+}

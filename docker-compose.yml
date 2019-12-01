@@ -1,0 +1,14 @@
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+  db:
+    image: postgres
+    ports:
+      - "8001:5432"
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+      PGPORT: 5432
+      PGDATABASE: mydb
