@@ -55,25 +55,25 @@ export class StorageEngine {
                  "CONSTRAINT nodes_root_id_fkey FOREIGN KEY (root_node_id) REFERENCES nodes (node_id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION" +
                  ")").then((value: QueryResult<any>) => {
                     if (!tables.descendants) {
-                        return pool.query("CREATE TABLE descendants (node_id integer PRIMARY KEY, descendants json NOT NULL, " +
-                         "CONSTRAINT descendants_node_id_fkey FOREIGN KEY (node_id) REFERENCES nodes (node_id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION" +
-                         ")").then((value: QueryResult<any>) => {
-                            return storage;
-                         })
+                        return this.createDescendantsTable(storage);
                     } else {
                         return storage;
                     }
                  })
             } else if (!tables.descendants) {
-               return pool.query("CREATE TABLE descendants (node_id integer PRIMARY KEY, descendants json NOT NULL, " +
-                "CONSTRAINT descendants_node_id_fkey FOREIGN KEY (node_id) REFERENCES nodes (node_id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION" +
-                ")").then((value: QueryResult<any>) => {
-                    return storage;
-                })
-           } else {
+                return this.createDescendantsTable(storage);
+            } else {
                 return storage;
-           }
+            }
         });
+    }
+
+    private createDescendantsTable(storage: StorageData): Promise<StorageData> {
+       return storage.pool.query("CREATE TABLE descendants (node_id integer PRIMARY KEY, descendants json NOT NULL, " +
+        "CONSTRAINT descendants_node_id_fkey FOREIGN KEY (node_id) REFERENCES nodes (node_id) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION" +
+        ")").then((value: QueryResult<any>) => {
+            return storage;
+        })
     }
 
     private createRootIfMissing(storage: StorageData): Promise<StorageData> {
