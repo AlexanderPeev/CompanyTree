@@ -30,7 +30,7 @@
     "@types/pg": "^7.11.2",
     "@types/restify": "^8.4.0",
     "child-process": "^1.0.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "pg": "^7.14.0",
     "restify": "^8.4.0",
     "ts-node": "^8.4.1",
